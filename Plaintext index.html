@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>古戦場貢献度ランキング</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .box {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        input[type="text"], select {
+            background-color: #2a2a2a;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #1e1e1e;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        th {
+            background-color: #2d2d2d;
+        }
+        code {
+            background-color: #2a2a2a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>古戦場貢献度ランキング</h1>
+        
+        <div class="box">
+            <p>団員一覧を取得するブックマークレット</p>
+            <code>javascript:(async()%3E%7B1%7D)()%3E</code>
+        </div>
+
+        <div class="box">
+            <select>
+                <option>第79回</option>
+            </select>
+            <input type="text" placeholder="プレイヤーID (カンマ区切り)" style="width: 50%; margin: 0 10px;">
+            <button>データ取得</button>
+        </div>
+
+        <div class="box">
+            <h3>最新ランキング</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>全体順位</th>
+                        <th>プレイヤー</th>
+                        <th>貢献度</th>
+                        <th>時速</th>
+                        <th>当日増加量</th>
+                        <th>10万位差</th>
+                        <th>更新日時</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>363位</td>
+                        <td>サンプルユーザー<br><small>ID: 1234567</small></td>
+                        <td>300.0億</td>
+                        <td>5.0億/時</td>
+                        <td>0</td>
+                        <td>+200億</td>
+                        <td>10/13 15:00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
