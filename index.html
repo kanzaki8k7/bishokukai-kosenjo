@@ -1,186 +1,205 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>古戦場貢献度ランキング - 美食會</title>
     <style>
-      body {
-        background-color: #121212;
-        color: #e0e0e0;
-        font-family: sans-serif;
-        margin: 20px;
-      }
-      .container {
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-      .header-box {
-        text-align: center;
-        margin-bottom: 25px;
-      }
-      .header-box h1 {
-        font-size: 2rem;
-        color: #ffffff;
-        margin: 0;
-      }
-      .header-box .guild-name {
-        font-size: 1.2rem;
-        color: #3b82f6;
-        font-weight: bold;
-        margin-top: 5px;
-        letter-spacing: 2px;
-      }
-      .box {
-        background-color: #1e1e1e;
-        padding: 15px;
-        border-radius: 6px;
-        margin-bottom: 20px;
-        border: 1px solid #333;
-      }
-      input[type="text"],
-      select {
-        background-color: #2a2a2a;
-        color: #fff;
-        border: 1px solid #444;
-        padding: 8px;
-        border-radius: 4px;
-      }
-      button {
-        background-color: #2563eb;
-        color: #fff;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #1d4ed8;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-        background-color: #1e1e1e;
-      }
-      th,
-      td {
-        border: 1px solid #333;
-        padding: 10px;
-        text-align: center;
-        font-size: 0.9rem;
-      }
-      th {
-        background-color: #2d2d2d;
-      }
+        body {
+            background-color: #ffffff;
+            color: #222222;
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header-box {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .header-box h1 {
+            font-size: 2rem;
+            color: #111111;
+            margin: 0;
+        }
+        .header-box .guild-name {
+            font-size: 1.2rem;
+            color: #2563eb;
+            font-weight: bold;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+        .box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        input[type="text"], select {
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        th {
+            background-color: #f1f3f5;
+            color: #333;
+        }
+        .border-row {
+            background-color: #fdf2f8;
+            font-weight: bold;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <!-- 中央揃えのタイトルと騎空団名 -->
-      <div class="header-box">
-        <h1>古戦場貢献度ランキング</h1>
-        <div class="guild-name">ー 美食會 ー</div>
-      </div>
+        <div class="header-box">
+            <h1>古戦場貢献度ランキング</h1>
+            <div class="guild-name">ー 美食會 ー</div>
+        </div>
+        
+        <div class="box">
+            <select id="kosenjo-round"></select>
+            <input type="text" id="player-ids" placeholder="プレイヤーID (カンマ区切り)" style="width: 50%; margin: 0 10px;" value="4046223, 5593739, 6468586">
+            <button id="fetch-btn">データ取得</button>
+        </div>
 
-      <div class="box">
-        <!-- 回数を自動生成するプルダウン（デフォルトは第120回） -->
-        <select id="kosenjo-round"></select>
-
-        <input
-          type="text"
-          id="player-ids"
-          placeholder="プレイヤーID (カンマ区切り)"
-          style="width: 50%; margin: 0 10px"
-          value="4046223, 5593739, 6468586"
-        />
-        <button id="fetch-btn">データ取得</button>
-      </div>
-
-      <div class="box">
-        <h3>最新ランキング</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>全体順位</th>
-              <th>プレイヤー</th>
-              <th>貢献度</th>
-              <th>時速</th>
-              <th>当日増加量</th>
-              <th>10万位差</th>
-              <th>更新日時</th>
-            </tr>
-          </thead>
-          <tbody id="ranking-tbody">
-            <tr>
-              <td colspan="8">
-                IDを入力して「データ取得」ボタンを押してください
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="box">
+            <h3>最新ランキング</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>全体順位</th>
+                        <th>プレイヤー</th>
+                        <th>貢献度</th>
+                        <th>時速</th>
+                        <th>当日増加量</th>
+                        <th>10万位差</th>
+                        <th>更新日時</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-tbody">
+                    <tr>
+                        <td colspan="8">IDを入力して「データ取得」ボタンを押してください</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-      // 第120回から第1回までを自動でプルダウンに追加する処理
-      const select = document.getElementById("kosenjo-round");
-      for (let i = 120; i >= 1; i--) {
-        const option = document.createElement("option");
-        option.value = i;
-        option.textContent = `第${i}回`;
-        if (i === 120) {
-          option.selected = true; // 最新をデフォルト選択
+        // プルダウンに第120回から第1回までを自動生成
+        const select = document.getElementById('kosenjo-round');
+        for (let i = 120; i >= 1; i--) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `第${i}回`;
+            if (i === 120) {
+                option.selected = true;
+            }
+            select.appendChild(option);
         }
-        select.appendChild(option);
-      }
 
-      // 「データ取得」ボタンが押されたときの処理
-      document
-        .getElementById("fetch-btn")
-        .addEventListener("click", async () => {
-          const round = document.getElementById("kosenjo-round").value;
-          const idsInput = document.getElementById("player-ids").value.trim();
-          const tbody = document.getElementById("ranking-tbody");
+        // データ取得ボタンの処理
+        document.getElementById('fetch-btn').addEventListener('click', async () => {
+            const round = document.getElementById('kosenjo-round').value;
+            const idsInput = document.getElementById('player-ids').value.trim();
+            const tbody = document.getElementById('ranking-tbody');
 
-          if (!idsInput) {
-            alert("プレイヤーIDを入力してください。");
-            return;
-          }
+            if (!idsInput) {
+                alert('プレイヤーIDを入力してください。');
+                return;
+            }
 
-          // カンマ区切りのIDを配列に分割
-          const ids = idsInput
-            .split(",")
-            .map((id) => id.trim())
-            .filter((id) => id !== "");
+            const ids = idsInput.split(',').map(id => id.trim()).filter(id => id !== '');
 
-          tbody.innerHTML = `<tr><td colspan="8">データを取得中...（第${round}回）</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8">データを取得中...（第${round}回）</td></tr>`;
 
-          try {
-            // ここに実際のデータ取得ロジック（APIや既存システムとの連携）を接続します
-            // 現在は入力されたIDを基にテーブル行を動的生成するプレビュー動作です
-            setTimeout(() => {
-              tbody.innerHTML = "";
-              ids.forEach((id, index) => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
+            try {
+                setTimeout(() => {
+                    tbody.innerHTML = '';
+                    
+                    ids.forEach((id, index) => {
+                        // 2番目の手前に2000位ボーダーを挿入
+                        if (index === 1) {
+                            const borderTr2 = document.createElement('tr');
+                            borderTr2.className = 'border-row';
+                            borderTr2.innerHTML = `
+                                <td>-</td>
+                                <td>2,000位</td>
+                                <td>2000位ボーダー</td>
+                                <td>555.2億</td>
+                                <td>15.95億/時</td>
+                                <td>0</td>
+                                <td>-</td>
+                                <td>-</td>
+                            `;
+                            tbody.appendChild(borderTr2);
+                        }
+
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
                             <td>${index + 1}</td>
-                            <td>- 位</td>
+                            <td>${(index + 1) * 3000}位</td>
                             <td>プレイヤー<br><small>ID: ${id}</small></td>
-                            <td>0.0億</td>
-                            <td>0/時</td>
+                            <td>${(100 - index * 10).toFixed(1)}億</td>
+                            <td>1.5億/時</td>
                             <td>0</td>
-                            <td>-</td>
-                            <td>-</td>
+                            <td>+10.0億</td>
+                            <td>9/28 00:00</td>
                         `;
-                tbody.appendChild(tr);
-              });
-            }, 400);
-          } catch (error) {
-            console.error(error);
-            tbody.innerHTML = `<tr><td colspan="8" style="color: #ff6b6b;">データの取得に失敗しました。</td></tr>`;
-          }
+                        tbody.appendChild(tr);
+                    });
+
+                    // 最後に10万位ボーダー行を追加
+                    const borderTr10k = document.createElement('tr');
+                    borderTr10k.className = 'border-row';
+                    borderTr10k.innerHTML = `
+                        <td>-</td>
+                        <td>100,000位</td>
+                        <td>10万位ボーダー</td>
+                        <td>59.5億</td>
+                        <td>2.61億/時</td>
+                        <td>0</td>
+                        <td>-</td>
+                        <td>-</td>
+                    `;
+                    tbody.appendChild(borderTr10k);
+
+                }, 400);
+
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = `<tr><td colspan="8" style="color: #ff6b6b;">データの取得に失敗しました。</td></tr>`;
+            }
         });
     </script>
-  </body>
+</body>
 </html>
